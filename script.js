@@ -1,9 +1,28 @@
 let products = [];
 
+// AUTO LOGIN CHECK
+window.onload = () => {
+    if (localStorage.getItem("loggedIn") === "true") {
+        showDashboard();
+    }
+};
+
 function login() {
+    // (Later replace with real auth)
+    localStorage.setItem("loggedIn", "true");
+    showDashboard();
+}
+
+function showDashboard() {
     document.getElementById("auth").classList.add("hidden");
+    document.getElementById("billing").classList.add("hidden");
     document.getElementById("dashboard").classList.remove("hidden");
     loadProducts();
+}
+
+function logout() {
+    localStorage.removeItem("loggedIn");
+    location.reload();
 }
 
 function loadProducts() {
@@ -15,48 +34,35 @@ function loadProducts() {
         products.push({ cent: i, count: 0, weight: 0 });
 
         container.innerHTML += `
-        <div class="product">
-            <strong>${i} Cent</strong>
-
-            <input type="number" min="0"
-                id="count-${i}"
-                value="0"
-                oninput="updateRow(${i})">
-
-            <input type="number" min="0"
-                id="weight-${i}"
-                value="0"
-                oninput="updateRow(${i})">
+        <div class="row">
+            <span>${i} Cent</span>
+            <input type="number" min="0" oninput="update(${i}, this.value, 'count')">
+            <input type="number" min="0" oninput="update(${i}, this.value, 'weight')">
         </div>`;
     }
 }
 
-function updateRow(cent) {
-    let count = parseInt(document.getElementById(`count-${cent}`).value) || 0;
-    let weight = parseInt(document.getElementById(`weight-${cent}`).value) || 0;
-
+function update(cent, value, type) {
     let product = products.find(p => p.cent === cent);
-    product.count = count;
-    product.weight = weight;
+    product[type] = parseInt(value) || 0;
 
-    if (count === 0 && weight === 0) {
-        alert(`Notification: ${cent} cent entry is empty!`);
+    if (product.count === 0 && product.weight === 0) {
+        alert(`${cent} cent stock is empty`);
     }
 
-    updateTotals();
+    calculateTotals();
 }
 
-function updateTotals() {
-    let totalProducts = 0;
-    let totalWeight = 0;
+function calculateTotals() {
+    let totalP = 0, totalW = 0;
 
     products.forEach(p => {
-        totalProducts += p.count;
-        totalWeight += p.weight;
+        totalP += p.count;
+        totalW += p.weight;
     });
 
-    document.getElementById("totalProducts").innerText = totalProducts;
-    document.getElementById("totalWeight").innerText = totalWeight;
+    document.getElementById("totalProducts").innerText = totalP;
+    document.getElementById("totalWeight").innerText = totalW;
 }
 
 function showBilling() {

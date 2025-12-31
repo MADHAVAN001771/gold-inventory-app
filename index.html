@@ -1,3 +1,8 @@
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,38 +12,107 @@
 </head>
 <body>
 
-<div id="auth">
-    <h2>Sign In / Register</h2>
-    <input type="text" placeholder="Username">
+<!-- LOGIN -->
+<div class="card" id="auth">
+    <h1>💛 Gold Inventory</h1>
+    <p>Simple • Fast • Secure</p>
+
+    <input type="email" placeholder="Email">
     <input type="password" placeholder="Password">
     <button onclick="login()">Login</button>
 </div>
 
-<div id="dashboard" class="hidden">
-    <h2>Gold Products Inventory</h2>
+<div class="card hidden" id="dashboard">
+    <div style="text-align:right;">
+        <button onclick="logout()" style="width:auto;">Logout</button>
+    </div>
 
-    <div class="header">
-        <strong>Cent</strong>
-        <strong>No. of Products</strong>
-        <strong>Total Weight (cents)</strong>
+    <h2>Gold Stock Entry</h2>
+
+    <label><strong>Gold Rate (₹ per cent)</strong></label>
+    <input type="number" id="goldRate" value="6000" oninput="calculateTotals()">
+
+    <div class="table-header">
+        <span>Cent</span>
+        <span>Products</span>
+        <span>Weight</span>
+        <span>Value (₹)</span>
     </div>
 
     <div id="products"></div>
 
     <div class="summary">
-        <h3>Total Products: <span id="totalProducts">0</span></h3>
-        <h3>Total Weight: <span id="totalWeight">0</span> cents</h3>
-        <button onclick="showBilling()">Go to Billing</button>
+        <div>Total Products<br><strong id="totalProducts">0</strong></div>
+        <div>Total Weight<br><strong id="totalWeight">0</strong></div>
+        <div>Total Value ₹<br><strong id="totalValue">0</strong></div>
     </div>
+
+    <button class="primary" onclick="showBilling()">View Billing</button>
 </div>
 
-<div id="billing" class="hidden">
-    <h2>Billing Page</h2>
-    <p>Total Products: <span id="billProducts"></span></p>
-    <p>Total Weight: <span id="billWeight"></span> cents</p>
+
+
+<!-- DASHBOARD -->
+<div class="card hidden" id="dashboard">
+    <h2>Gold Stock Entry</h2>
+
+    <div class="table-header">
+        <span>Cent</span>
+        <span>Products</span>
+        <span>Weight</span>
+    </div>
+
+    <div id="products"></div>
+
+    <div class="summary">
+        <div>Total Products<br><strong id="totalProducts">0</strong></div>
+        <div>Total Weight (cents)<br><strong id="totalWeight">0</strong></div>
+    </div>
+
+    <button class="primary" onclick="showBilling()">View Billing</button>
+</div>
+
+<!-- BILLING -->
+<div class="card hidden" id="billing">
+    <h2>Billing Summary</h2>
+
+    <div class="bill-box">
+        <p>Total Products</p>
+        <h3 id="billProducts"></h3>
+    </div>
+
+    <div class="bill-box">
+        <p>Total Weight</p>
+        <h3 id="billWeight"></h3>
+    </div>
+
     <button onclick="goBack()">Back</button>
 </div>
 
 <script src="script.js"></script>
 </body>
 </html>
+
+<!-- DASHBOARD -->
+<div class="card hidden" id="dashboard">
+    <div style="text-align:right;">
+        <button onclick="logout()" style="width:auto;padding:8px 16px;">Logout</button>
+    </div>
+
+    <h2>Gold Stock Entry</h2>
+
+    <div class="table-header">
+        <span>Cent</span>
+        <span>Products</span>
+        <span>Weight</span>
+    </div>
+
+    <div id="products"></div>
+
+    <div class="summary">
+        <div>Total Products<br><strong id="totalProducts">0</strong></div>
+        <div>Total Weight (cents)<br><strong id="totalWeight">0</strong></div>
+    </div>
+
+    <button class="primary" onclick="showBilling()">View Billing</button>
+</div>

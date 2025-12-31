@@ -1,34 +1,88 @@
 body {
-    font-family: Arial;
-    background: #f4f4f4;
+    background: linear-gradient(135deg, #f9d976, #f39f86);
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
     padding: 20px;
+}
+
+.card {
+    background: #fff;
+    max-width: 850px;
+    margin: auto;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 
 .hidden {
     display: none;
 }
 
-#auth, #dashboard, #billing {
-    background: white;
-    padding: 20px;
-    border-radius: 6px;
-    max-width: 750px;
-    margin: auto;
+h1, h2 {
+    text-align: center;
+    color: #b8860b;
 }
 
-.header, .product {
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    background: #b8860b;
+    border: none;
+    color: white;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #9c7209;
+}
+
+.primary {
+    margin-top: 20px;
+}
+
+.table-header, .row {
     display: grid;
     grid-template-columns: 1fr 2fr 2fr;
-    gap: 10px;
-    align-items: center;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.row {
+    font-weight: normal;
+    background: #fff8dc;
+    border-radius: 10px;
     margin: 6px 0;
 }
 
-input[type="number"] {
-    padding: 6px;
-    width: 100%;
+.row input {
+    width: 90%;
 }
 
 .summary {
+    display: flex;
+    justify-content: space-around;
+    background: #fff3cd;
+    padding: 15px;
+    border-radius: 12px;
     margin-top: 20px;
+}
+
+.bill-box {
+    background: #fff3cd;
+    padding: 20px;
+    border-radius: 12px;
+    margin: 10px 0;
+    text-align: center;
 }
