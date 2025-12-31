@@ -1,28 +1,25 @@
 let products = [];
 
-// AUTO LOGIN CHECK
+function login() {
+    localStorage.setItem("loggedIn", "true");
+    showDashboard();
+}
+
+function logout() {
+    localStorage.removeItem("loggedIn");
+    location.reload();
+}
+
 window.onload = () => {
     if (localStorage.getItem("loggedIn") === "true") {
         showDashboard();
     }
 };
 
-function login() {
-    // (Later replace with real auth)
-    localStorage.setItem("loggedIn", "true");
-    showDashboard();
-}
-
 function showDashboard() {
     document.getElementById("auth").classList.add("hidden");
-    document.getElementById("billing").classList.add("hidden");
     document.getElementById("dashboard").classList.remove("hidden");
     loadProducts();
-}
-
-function logout() {
-    localStorage.removeItem("loggedIn");
-    location.reload();
 }
 
 function loadProducts() {
@@ -31,52 +28,40 @@ function loadProducts() {
     products = [];
 
     for (let i = 1; i <= 20; i++) {
-        products.push({ cent: i, count: 0, weight: 0 });
+        products.push({ cent: i, count: 0, weight: 0, value: 0 });
 
         container.innerHTML += `
         <div class="row">
             <span>${i} Cent</span>
             <input type="number" min="0" oninput="update(${i}, this.value, 'count')">
             <input type="number" min="0" oninput="update(${i}, this.value, 'weight')">
+            <span id="value-${i}">₹ 0</span>
         </div>`;
     }
 }
 
 function update(cent, value, type) {
     let product = products.find(p => p.cent === cent);
-    product[type] = parseInt(value) || 0;
-
-    if (product.count === 0 && product.weight === 0) {
-        alert(`${cent} cent stock is empty`);
-    }
-
+    product[type] = Number(value) || 0;
     calculateTotals();
 }
 
 function calculateTotals() {
-    let totalP = 0, totalW = 0;
+    let rate = Number(document.getElementById("goldRate").value) || 0;
+    let totalP = 0, totalW = 0, totalV = 0;
 
     products.forEach(p => {
+        p.value = p.weight * rate;
+        document.getElementById(`value-${p.cent}`).innerText =
+            "₹ " + p.value.toLocaleString();
+
         totalP += p.count;
         totalW += p.weight;
+        totalV += p.value;
     });
 
     document.getElementById("totalProducts").innerText = totalP;
     document.getElementById("totalWeight").innerText = totalW;
-}
-
-function showBilling() {
-    document.getElementById("dashboard").classList.add("hidden");
-    document.getElementById("billing").classList.remove("hidden");
-
-    document.getElementById("billProducts").innerText =
-        document.getElementById("totalProducts").innerText;
-
-    document.getElementById("billWeight").innerText =
-        document.getElementById("totalWeight").innerText;
-}
-
-function goBack() {
-    document.getElementById("billing").classList.add("hidden");
-    document.getElementById("dashboard").classList.remove("hidden");
+    document.getElementById("totalValue").innerText =
+        "₹ " + totalV.toLocaleString();
 }
