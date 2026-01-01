@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sold Products History</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <h2>Sold Products History</h2>
+
+  <a href="index.html">Back to Stock Entry</a>
+
+  <label>Select Date: </label>
+  <input type="date" id="dateSelect">
+
+  <div id="soldTable" class="table"></div>
+</div>
+
+<script>
+const soldTable = document.getElementById("soldTable");
+const dateSelect = document.getElementById("dateSelect");
+const CENTS = Array.from({ length: 20 }, (_, i) => i + 1);
+
+// Load sold history
+const soldHistory = JSON.parse(localStorage.getItem("sold-history")) || {};
+
+dateSelect.onchange = () => renderTable(dateSelect.value);
+
+// default today
+dateSelect.value = new Date().toISOString().split("T")[0];
+renderTable(dateSelect.value);
+
+function renderTable(date) {
+  soldTable.innerHTML = `
+    <div class="row header-row">
+      <div>Cent</div>
+      <div>Sold Products</div>
+      <div>Sold Weight</div>
+    </div>
+  `;
+
+  const soldData = soldHistory[date] || {};
+
+  CENTS.forEach(cent => {
+    const sold = soldData[cent] || { products: 0, weight: 0 };
+    const row = document.createElement("div");
+    row.className = "row";
+    row.innerHTML = `
+      <div>${cent} Cent</div>
+      <div>${sold.products}</div>
+      <div>${sold.weight}</div>
+    `;
+    soldTable.appendChild(row);
+  });
+}
+</script>
+
+</body>
+</html>

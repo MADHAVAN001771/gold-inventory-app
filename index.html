@@ -1,54 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Gold Inventory</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Diamond Nosepin Inventory</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- LOGIN -->
-<div class="card center" id="auth">
-    <h1>💛 Gold Inventory</h1>
-    <p>Smart • Simple • Secure</p>
-    <button onclick="login()">Enter Dashboard</button>
-</div>
+<div class="container">
+  <h2>Diamond Nosepin Inventory</h2>
 
-<!-- DASHBOARD -->
-<div class="card hidden" id="dashboard">
-    <div class="top-bar">
-        <h2>Gold Stock Entry</h2>
-        <button class="logout" onclick="logout()">Logout</button>
+  <a href="sold.html">View Sold History</a>
+
+  <div class="table">
+    <!-- Header -->
+    <div class="row header-row">
+      <div>Cent</div>
+      <div>Opening Stock</div>
+      <div>Sold Today</div>
+      <div>Remaining</div>
     </div>
 
-    <div class="rate-box">
-        <label>Gold Rate (₹ per cent)</label>
-        <input type="number" id="goldRate" value="6000">
-    </div>
+    <div id="rows"></div>
 
-    <div class="table-header">
-        <span>Cent</span>
-        <span>Products</span>
-        <span>Weight</span>
-        <span>Value (₹)</span>
+    <!-- Totals Row -->
+    <div id="totals-row" class="row totals-row">
+      <div>Total</div>
+      <div class="small-box"><span id="total-open-no">0</span>, <span id="total-open-wt">0</span></div>
+      <div class="small-box"><span id="total-sold-no">0</span>, <span id="total-sold-wt">0</span></div>
+      <div class="small-box"><span id="total-remain-no">0</span>, <span id="total-remain-wt">0</span></div>
     </div>
-
-    <div id="products"></div>
-
-    <div class="summary">
-        <div>
-            <p>Total Products</p>
-            <h3 id="totalProducts">0</h3>
-        </div>
-        <div>
-            <p>Total Weight</p>
-            <h3 id="totalWeight">0</h3>
-        </div>
-        <div class="highlight">
-            <p>Total Value</p>
-            <h3 id="totalValue">₹ 0</h3>
-        </div>
-    </div>
+  </div>
 </div>
 
 <script src="script.js"></script>
